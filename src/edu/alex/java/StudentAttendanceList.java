@@ -61,7 +61,6 @@ public class StudentAttendanceList
                 String lastName = readLines.get(i + 1);
                 String socialID = readLines.get(i + 2);
                 studentList.add(new Student(firstName, lastName,  socialID));
-
             }
         }
     }
