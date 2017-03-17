@@ -1,14 +1,14 @@
 package edu.alex.java.utils;
 
+import edu.alex.java.Student;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by Alex on 15-Mar-17.
@@ -17,37 +17,40 @@ public class IO
 {
     static Scanner scan = new Scanner(System.in);
 
-    public static boolean write(String path, String data){
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter(path, true);
-            writer.write(data);//Security problem -> IO Fails.
-            return true;
-        }
-        catch (IOException e){
-            e.printStackTrace();
-            //show animation for unknown error.
-        }
-        finally {
-            if (writer!=null){
-                try {
-                    writer.close();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
+        public static boolean write(String path, String data){
+            FileWriter writer = null;
+            try {
+                writer = new FileWriter(path, true);
+                writer.write(data);//Security problem -> IO Fails.
+                return true;
+            }
+            catch (IOException e){
+                e.printStackTrace();
+                //show animation for unknown error.
+            }
+            finally {
+                if (writer!=null){
+                    try {
+                        writer.close();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                 }
             }
+            return false;
         }
-        return false;
-    }
 
-    public static List<String> read(String path){
-        try {
-            List<String> lines = Files.readAllLines(Paths.get(path));
-            return lines;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public static List<String> read(String path)
+    {
+            try {
+                List<String> lines = Files.readAllLines(Paths.get(path));////if file exist but empty - returns empty List
+                return lines;
+            }
+            catch (IOException e)
+            {
+                //e.printStackTrace(); file did not created yet
+            }
+            return null;
     }
 
     public static boolean write7(String path, String data){
@@ -61,7 +64,30 @@ public class IO
         return false;
     }
 
-//__________________________________________________________________________________
+    public static boolean write7(String path, ArrayList<Student> data){
+        try (FileWriter writer = new FileWriter(path))
+        {
+            for (Student datam : data) {
+                writer.write(datam.getFirstName());//Security problem -> IO Fails.
+                writer.write("\n");
+
+                writer.write(datam.getLastName());//Security problem -> IO Fails.
+                writer.write("\n");
+
+                writer.write(datam.getSocialID());//Security problem -> IO Fails.
+                writer.write("\n");
+            }
+            return true;
+        }
+        catch (IOException e)
+        {
+            //
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    //__________________________________________________________________________________
     public static String getNextString()
     {
         return scan.next();
@@ -414,12 +440,14 @@ public class IO
         if (!prompt.endsWith(":") && !prompt.endsWith(": ")) {
             prompt += ": ";
         }
-        //System.out.println(message);
         System.out.print(prompt);
-        return scan.next();
+        return scan.nextLine();
     }
 
     public static String getSentence(String prompt){
+        if (!prompt.endsWith(":") && !prompt.endsWith(": ")) {
+            prompt += ": ";
+        }
         System.out.println(prompt);
         return scan.nextLine();
     }
@@ -436,10 +464,11 @@ public class IO
         return result;
     }
 
-    public static String[] getStringArray(String message, int size){
+    public static String[] getStringArray(String prompt, int size){
         String[] result = new String[size];
         for (int i = 0; i < result.length; i++) {
-            System.out.println(message);
+            System.out.println(prompt);
+            //result[i] = scan.nextLine();
             result[i] = scan.next();
         }
         return result;

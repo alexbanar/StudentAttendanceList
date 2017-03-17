@@ -24,6 +24,13 @@ public class Student {
         this.socialID = socialID;
     }
 
+    public Student(Student student)
+    {
+        this.firstName = student.firstName;
+        this.lastName = student.lastName;
+        this.socialID = student.socialID;
+    }
+
 
     public void printDetails()
     {

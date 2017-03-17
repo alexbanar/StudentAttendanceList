@@ -17,7 +17,8 @@ public class StudentAttendanceList
         studentList = new ArrayList<>();
     }
 
-    public void addNewStudent(){
+    public void addNewStudent()
+    {
         Student s = new Student();//IO!!!
         studentList.add(s);
     }
@@ -38,22 +39,25 @@ public class StudentAttendanceList
         }
     }
 
-    void saveToFile()
-    {
-        for (Student student : studentList)
-        {
-            IO.write7("1.txt", student.getFirstName());
-            IO.write7("1.txt", "\n");
-            IO.write7("1.txt", student.getLastName());
-            IO.write7("1.txt", "\n");
-            IO.write7("1.txt", student.getSocialID());
-            IO.write7("1.txt", "\n");
+    private ArrayList<Student> getCopyStudentsList() {
+        ArrayList<Student> copyStudents = new ArrayList<>();
+        for (Student student : studentList) {
+            Student copyStudent = new Student(student);
+            copyStudents.add(copyStudent);
         }
+
+        return copyStudents;
+    }
+
+
+    public void saveToFile()
+    {
+            IO.write7("1.txt", getCopyStudentsList());
     }
 
     void restoreFromFile()
     {
-        List<String> readLines = IO.read("1.txt");
+        List<String> readLines = IO.read("1.txt");//if file exist but empty - returns empty List
         if(readLines != null)
         {
             for (int i = 0; i < readLines.size(); i += 3) {
