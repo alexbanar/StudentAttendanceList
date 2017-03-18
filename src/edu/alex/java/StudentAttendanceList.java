@@ -52,9 +52,23 @@ public class StudentAttendanceList
 
     public void saveToFile()
     {
-            IO.write7("1.txt", getCopyStudentsList());
+        ArrayList<Student> copyStudentsList = getCopyStudentsList();
+        ArrayList<String> stringStudentsList = new ArrayList<>();
+        for (Student student : copyStudentsList)
+        {
+            stringStudentsList.add(student.getFirstName());
+            stringStudentsList.add(student.getLastName());
+            stringStudentsList.add(student.getSocialID());
+        }
+
+        IO.write7("1.txt", stringStudentsList);
     }
 
+/*    public void saveToFile()
+    {
+        IO.write7("1.txt", getCopyStudentsList());
+    }
+*/
     void restoreFromFile()
     {
         List<String> readLines = IO.read("1.txt");//if file exist but empty - returns empty List

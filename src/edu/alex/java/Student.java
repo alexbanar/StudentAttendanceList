@@ -45,9 +45,7 @@ public class Student {
                         "Social ID: " + socialID;
     }
 
-
-
-    public String getFirstName() {
+   public String getFirstName() {
         return firstName;
     }
 

@@ -64,7 +64,7 @@ public class IO
         return false;
     }
 
-    public static boolean write7(String path, ArrayList<Student> data){
+/*    public static boolean write7(String path, ArrayList<Student> data){
         try (FileWriter writer = new FileWriter(path))
         {
             for (Student datam : data) {
@@ -81,11 +81,28 @@ public class IO
         }
         catch (IOException e)
         {
-            //
             e.printStackTrace();
         }
         return false;
     }
+*/
+    public static boolean write7(String path, ArrayList<String> data){
+        try (FileWriter writer = new FileWriter(path))
+        {
+            for (String datam : data)
+            {
+                writer.write(datam);
+                writer.write("\n");
+            }
+            return true;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
     //__________________________________________________________________________________
     public static String getNextString()
