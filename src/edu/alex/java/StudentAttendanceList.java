@@ -57,8 +57,11 @@ public class StudentAttendanceList
         for (Student student : copyStudentsList)
         {
             stringStudentsList.add(student.getFirstName());
+            stringStudentsList.add("\n");
             stringStudentsList.add(student.getLastName());
+            stringStudentsList.add("\n");
             stringStudentsList.add(student.getSocialID());
+            stringStudentsList.add("\n");
         }
 
         IO.write7("1.txt", stringStudentsList);
@@ -82,5 +85,4 @@ public class StudentAttendanceList
             }
         }
     }
-
 }
